@@ -1,20 +1,18 @@
-from .models import Recipe
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, generics
+from recipes.models import Recipe
 from .serializers import RecipeSerializer
-from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
 
 
 # Recipe View set
 class RecipeViewSet(viewsets.ModelViewSet):
-    # queryset = Recipe.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = RecipeSerializer
 
-    def get_queryset(self, *args, **kwargs):
-        mo = 2
-        # pk = self.request.POST.get('user')
-        # user = get_object_or_404(User, pk=pk)
-        # if user:
-        #     return user.recipe_set.all()
-        return Recipe.objects.all()
+    def get_queryset(self):
+        return self.request.user.recipe_set.all()
 
+
+# Recipe List API
+class RecipeListAPI(generics.ListAPIView):
+    queryset = Recipe.objects.all()
+    serializer_class = RecipeSerializer
