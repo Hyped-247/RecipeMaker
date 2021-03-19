@@ -3,7 +3,7 @@ cffi==1.12.3
 cryptography==2.6.1
 Django==2.2.1
 django-rest-knox==4.0.1
-djangorestframework==3.10.2
+djangorestframework==3.11.2
 Pillow==6.0.0
 pycparser==2.19
 pytz==2019.1
